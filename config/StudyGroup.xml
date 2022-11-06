@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configuration PUBLIC "" "Configuration.dtd"[
+
+
+<!ENTITY TargetLumi  "1" >
+<!ENTITY outfilepath "/user/anmalara/WorkingArea/CMSSW_10_6_28/src/LEAF/../../../StudyGroup/2017/Preselection/InitialSetup" >
+<!-- can also use the storage elements like this example below. If a path starts with "/pnfs/", the Analyzer will prepend the "SEDirector" specified below
+<!ENTITY outfilepath "/pnfs/psi.ch/cms/trivcat/store/user/anmalara/StudyGroup/InitialSetup" >
+-->
+
+
+
+<!ENTITY TestSignal_M1000        SYSTEM "/user/anmalara/WorkingArea/CMSSW_10_6_28/src/LEAF/.testsamples/TestSignal_M1000.xml" >
+<!ENTITY TestSignal_M2000        SYSTEM "/user/anmalara/WorkingArea/CMSSW_10_6_28/src/LEAF/.testsamples/TestSignal_M2000.xml" >
+<!ENTITY TestBackground_Sample1  SYSTEM "/user/anmalara/WorkingArea/CMSSW_10_6_28/src/LEAF/.testsamples/TestBackground.xml" >
+<!ENTITY TestData_Sample1        SYSTEM "/user/anmalara/WorkingArea/CMSSW_10_6_28/src/LEAF/.testsamples/TestData.xml" >
+
+<!-- real datasets are here
+<!ENTITY LQLQToBTau_MLQ1000_MPS117_MC1100_L1p0   SYSTEM "/user/anmalara/WorkingArea/CMSSW_10_6_28/src/LEAF/Analyzer/datasets/UL17/Summer20/MINIAOD/LQLQToBTau_MLQ1000_MPS117_MC1100_L1p0.xml" >
+<!ENTITY LQLQToBTau_MLQ1360_MPS117_MC1100_L1p0   SYSTEM "/user/anmalara/WorkingArea/CMSSW_10_6_28/src/LEAF/Analyzer/datasets/UL17/Summer20/MINIAOD/LQLQToBTau_MLQ1360_MPS117_MC1100_L1p0.xml" >
+<!ENTITY WJetsToLNu_Inclusive                    SYSTEM "/user/anmalara/WorkingArea/CMSSW_10_6_28/src/LEAF/Analyzer/datasets/UL17/Summer20/MINIAOD/WJetsToLNu_Inclusive.xml" >
+-->
+
+
+
+]>
+
+
+<Configuration OutputDirectory="&outfilepath;" PostFix="" SEDirector="root://t3dcachedb03.psi.ch/" TargetLumi="&TargetLumi;" AnalysisTool="StudyGroupTool">
+
+  <SubmissionSettings EventsPerJob="-1" FilesPerJob="-1" Walltime="01:00:00" />
+
+  <InputDatasets>
+    <Dataset Name="TestSignal_M1000"        Lumi="100000"    Year="2017"  Type="MC"    Group="None"  >              &TestSignal_M1000;         </Dataset>
+    <Dataset Name="TestSignal_M2000"        Lumi="100000"    Year="2017"  Type="MC"    Group="None"  >              &TestSignal_M2000;         </Dataset>
+    <Dataset Name="TestBackground_Sample1"  Lumi="100000"    Year="2017"  Type="MC"    Group="TestBackground"  >    &TestBackground_Sample1;   </Dataset>
+    <Dataset Name="TestData_Sample1"        Lumi="1"         Year="2017"  Type="DATA"  Group="TestData" >           &TestData_Sample1;         </Dataset>
+  </InputDatasets>
+
+  <AdditionalInputs>
+    <!--
+    Here, additional collections can be specified. Use this format:
+
+    <AdditionalInput>
+      <AdditionalDataset Name="TestDataset"   Year="2017" >                 &TestDataset_pfonly;                </AdditionalDataset>
+      <Collection ClassName="PFCandidate" BranchName="pfcands"/>
+    </AdditionalInput>
+
+    <AdditionalInput>
+      <AdditionalDataset Name="TestDataset"   Year="2017" >                 &TestDataset_trigandstandard;                </AdditionalDataset>
+      <AdditionalDataset Name="TestDataset2"  Year="2017" >                 &TestDataset_trigandstandard;                </AdditionalDataset>
+      <Collection ClassName="TriggerObject" BranchName="triggerobjects"/>
+    </AdditionalInput>
+
+    It is possible to define as many <AdditionalInput> fields as desired, one for each new set of files to be read in. Inside each <AdditionalInput>, multiple <Collection> can be defined - one per branch that should be taken from this additional input dataset.
+
+    -->
+  </AdditionalInputs>
+
+  <AdditionalVariables>
+    <Variable Name="test" Value="testvalue"/>
+  </AdditionalVariables>
+
+</Configuration>
